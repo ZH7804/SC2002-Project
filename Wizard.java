@@ -10,7 +10,7 @@ public class Wizard extends Player {
         super("Wizard", 200, 50, 10, 20);
     }
 
-    @Override // for arcande blast
+    @Override // for arcane blast
     public void executeSpecialSkillEffect(BattleManager battle) {
         List<Combatant> aliveEnemies = battle.getAliveEnemies();
 

@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.Scanner;
 
+
 // this handles all the UI portion of the game, i.e. all input/output from scanner accesse this class
 public class GameUI {
 
@@ -167,50 +168,38 @@ public class GameUI {
         pause();
     }
 
-    public Action promptPlayerAction(Player player, BattleManager battle) { //this is called within the method takeTurn() for warrior and wizard classes
-        System.out.println();
-        System.out.println("  What will " + player.getName() + " do?"); //this prompts the player to select an option
-        System.out.println("  [1] Basic Attack");
-        System.out.println("  [2] Defend  (+10 DEF for 2 turns)");
+    public Action promptPlayerAction(Player player, BattleManager battle) {
+        while (true) { 
+            System.out.println("\n-- " + player.getName() + "'s Turn --");
+            System.out.println(" [1] Basic Attack");
+            System.out.println(" [2] Defend");
+        
+            String skillStatus = player.isSkillReady() ? "" : " (Cooldown: " + player.getSkillCooldown() + ")";
+            System.out.println(" [3] Special Skill: " + player.getSkillDescription() + skillStatus);
+        
+            System.out.println(" [4] Use Item");
 
-        // Only show the item option if they have items left
-        if (player.hasItems()) {
-            System.out.println("  [3] Use Item");
-        } else {
-            System.out.println("  [3] Use Item  (no items remaining)");
-        }
+            int choice = readInt("  Choose action: ", 1, 4);
 
-        // Show skill with cooldown status
-        if (player.isSkillReady()) {
-            System.out.println("  [4] Special Skill - " + player.getSkillDescription());
-        } else {
-            System.out.println("  [4] Special Skill - on cooldown (" + player.getSkillCooldown() + " turns left)");
-        }
-
-        System.out.println();
-
-        int choice = readInt("  Choose action (1-4): ", 1, 4);
-
-        return switch (choice) {
-            case 1 -> {
-                // Pick a target first, then wrap it in a BasicAttack
-                Combatant target = pickTarget(battle.getAliveEnemies());
-                yield new BasicAttack(target);
+            if (choice == 3 && !player.isSkillReady()) {
+                System.out.println("\n  [!] That skill is on cooldown! Choose another action.");
+                continue; // Restart the loop to pick another available skill, don't return an action yet
             }
-            case 2 -> new Defend();
-            case 3 -> {
-                if (!player.hasItems()) {
-                    System.out.println("  No items! Defaulting to Basic Attack."); //if no target, return this message and use basic attack
-                    Combatant target = pickTarget(battle.getAliveEnemies());
-                    yield new BasicAttack(target);
-                }
-                Item item = pickItem(player);
-                yield new UseItem(item, player);
+        
+            if (choice == 4 && !player.hasItems()) {
+                System.out.println("\n  [!] Your inventory is empty!");
+                continue;
             }
-            case 4 -> new SpecialSkill();
-            default -> new Defend(); // fallback, shouldnt reach here
-        };
-    }
+
+            return switch (choice) { //if validation passes
+                case 1 -> new BasicAttack(pickTarget(battle.getAliveEnemies()));
+                case 2 -> new Defend();
+                case 3 -> new SpecialSkill();
+                case 4 -> {Item item = pickItem(player);yield new UseItem(item, player);}
+                default -> new BasicAttack(battle.getAliveEnemies().get(0));
+            };
+            }
+        }
 
     public Combatant pickTarget(List<Combatant> aliveEnemies) { //function to pick a target amongst available enemy options
         System.out.println();

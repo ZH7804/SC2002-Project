@@ -8,12 +8,6 @@ public class SpecialSkill implements Action {
 
         Player player = (Player) attacker;
 
-        if (!player.isSkillReady()) {
-            System.out.println(player.getName() + "'s skill is on cooldown! (" //this checks for cooldown and whether it is available
-                    + player.getSkillCooldown() + " turns left)");
-            return;
-        }
-
         // Fire the skill and start the cooldown
         player.executeSpecialSkillEffect(battle);
         player.startSkillCooldown();
