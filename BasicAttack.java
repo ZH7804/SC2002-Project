@@ -14,7 +14,7 @@ public class BasicAttack implements Action {
         // Check if the target is protected by a Smoke Bomb, if there's a smoke bomb then it does nothing
         if (chosenTarget.hasEffect(SmokeBombEffect.class)) {
             System.out.println(attacker.getName() + " attacks " + chosenTarget.getName()
-                    + " but the smoke obscures them — 0 damage!");
+                    + " but the smoke obscures them - 0 damage!");
             return;
         }
 

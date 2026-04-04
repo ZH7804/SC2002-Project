@@ -37,7 +37,7 @@ public class Warrior extends Player { //implements a playable character under pl
 
     @Override //provides the skill descrption
     public String getSkillDescription() {
-        return "Shield Bash — attack one enemy and stun them for 2 turns";
+        return "Shield Bash - attack one enemy and stun them for 2 turns";
     }
 
     @Override //gives it what it actually does during turn, which includes prompting the playeraction from GameUI

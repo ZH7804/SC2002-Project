@@ -1,7 +1,7 @@
 //this is from warrior shield bash, and stuns for two turns
 public class StunEffect implements StatusEffect {
 
-    private int turnsRemaining = 2;
+    private int turnsRemaining = 3;
     private boolean isStunned = true; //this is what is checked before the battlemanager allows the person to move
 
     @Override

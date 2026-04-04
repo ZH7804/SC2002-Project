@@ -47,7 +47,7 @@ public class BattleManager {
             checkForGameEnd();
         }
 
-        // End of level — clean up the Wizard's Arcane Blast stacks if needed - otherwise it bugs out and carries over
+        // End of level - clean up the Wizard's Arcane Blast stacks if needed - otherwise it bugs out and carries over
         if (player instanceof Wizard) {
             ((Wizard) player).resetArcaneBonus();
         }
@@ -72,7 +72,7 @@ public class BattleManager {
             current.processStatusEffects(); //apply status effects
 
             if (current.hasEffect(StunEffect.class)) { //if stunned, skip turn and continue out of the loop
-                System.out.println(current.getName() + " is stunned — skipping their turn.");
+                System.out.println(current.getName() + " is stunned - skipping their turn.");
                 continue;
             }
 
