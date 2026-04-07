@@ -1,5 +1,6 @@
 import java.util.List;
 
+
 // the warrior's special skill is shield bash which stuns them for this turn and next turn
 
 public class Warrior extends Player { //implements a playable character under player
@@ -44,6 +45,9 @@ public class Warrior extends Player { //implements a playable character under pl
     public void takeTurn(BattleManager battle) {
         Action chosenAction = battle.getGameUI().promptPlayerAction(this, battle);
         chosenAction.execute(this, battle.getAliveEnemies(), battle);
-        this.tickCooldown();
+        if (!this.shouldSkipCooldownTick()) {
+            this.tickCooldown();
+        }
+        this.setSkipCooldownTick(false);
     }
 }

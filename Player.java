@@ -53,6 +53,16 @@ public abstract class Player extends Combatant {
         }
     }
 
+    private boolean skipCooldownTick = false;
+
+    public void setSkipCooldownTick(boolean skip) { //for powerstone shenanigans, since we are not ticking down cooldown during powerstone
+        this.skipCooldownTick = skip;
+    }
+
+    public boolean shouldSkipCooldownTick() {
+        return skipCooldownTick;
+    }
+
     public abstract void executeSpecialSkillEffect(BattleManager battle); //this executes the interface for the special skill, which depends on exactly what the special skill does
 
     public abstract String getSkillDescription(); //each special skill will require a description

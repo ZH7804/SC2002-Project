@@ -5,6 +5,7 @@ public class PowerStone implements Item {
     public void use(Combatant user, BattleManager battle) {
         if (user instanceof Player) {
             System.out.println(user.getName() + " activates a Power Stone - free skill use!");
+            ((Player) user).setSkipCooldownTick(true); //prevents special skill tickdown for this turn
             ((Player) user).executeSpecialSkillEffect(battle);
         } else {
             System.out.println("This item can only be used by players.");
