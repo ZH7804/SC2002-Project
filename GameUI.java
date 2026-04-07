@@ -292,4 +292,19 @@ public class GameUI {
             System.out.println("\n\n\n");
         }
     }
+
+    public TurnOrderStrategy pickTurnOrder() {
+        System.out.println("\n==========================================================");
+        System.out.println("  CHOOSE TURN ORDER");
+        System.out.println("==========================================================");
+        System.out.println("  [1] Speed Based (higher speed acts first)");
+        System.out.println("  [2] Lowest HP First (wounded combatants act earlier)");
+        int choice = readInt("  Your choice (1-2): ", 1, 2);
+        if (choice==1){
+            return new SpeedBasedOrder();
+        }
+        else{
+            return new HPOrder();
+        }
+}
 }

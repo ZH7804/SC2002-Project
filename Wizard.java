@@ -61,6 +61,9 @@ public class Wizard extends Player {
     public void takeTurn(BattleManager battle) {
         Action chosenAction = battle.getGameUI().promptPlayerAction(this, battle);
         chosenAction.execute(this, battle.getAliveEnemies(), battle);
-        this.tickCooldown();
+        if (!this.shouldSkipCooldownTick()) {
+            this.tickCooldown();
+        }
+        this.setSkipCooldownTick(false);
     }
 }

@@ -7,29 +7,34 @@ public class Main {
 
         Player lastPlayer = null;
         Level lastLevel = null;
+        TurnOrderStrategy lastOrder = null;
 
         boolean keepPlaying = true;
 
         while (keepPlaying) {
             Player player;
             Level level;
+            TurnOrderStrategy order;
             
-            boolean replaySameSettings = (lastPlayer != null && lastLevel != null); // If the player wants to replay with the same settings, skip setup
+            boolean replaySameSettings = (lastPlayer != null && lastLevel != null && lastOrder != null); // If the player wants to replay with the same settings, skip setup
 
             if (replaySameSettings) {
                 player = resetPlayer(lastPlayer);
                 level = new Level(lastLevel.getLevelNumber());
+                order = lastOrder;
             } else {
                 player = ui.pickPlayer(); //have to re-pick everything if they are either playing for first time or choose to not replay
                 ui.pickItems(player);
                 level = ui.pickDifficulty();
+                order = ui.pickTurnOrder();
             }
 
             // Save these in case of replay
             lastPlayer = player;
             lastLevel = level;
+            lastOrder = order;            
 
-            BattleManager battle = new BattleManager(player, level, ui); //using the battlemanager to start running the battle
+            BattleManager battle = new BattleManager(player, level, ui,order); //using the battlemanager to start running the battle
             battle.runLevel();
 
             // Ask what to do after the game ends

@@ -15,12 +15,12 @@ public class BattleManager {
     private boolean gameOver = false;
     private boolean playerWon = false;
 
-    public BattleManager(Player player, Level level, GameUI ui) {
+    public BattleManager(Player player, Level level, GameUI ui, TurnOrderStrategy strategy) {
         this.player = player;
         this.currentLevel = level;
         this.ui = ui;
         this.activeEnemies = new ArrayList<>();
-        this.turnOrder = new SpeedBasedOrder();
+        this.turnOrder = strategy;
     }
 
 
