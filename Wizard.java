@@ -54,7 +54,7 @@ public class Wizard extends Player {
 
     @Override //adds desciption of arcane
     public String getSkillDescription() {
-        return "Arcane Blast — hit all enemies; +10 ATK per kill (until end of level)";
+        return "Arcane Blast - hit all enemies; +10 ATK per kill (until end of level)";
     }
 
     @Override
